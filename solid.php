@@ -1,39 +1,42 @@
 <?php
-// Archivo: letra_d.php
+// Archivo: solid_s.php
 
-// Definición de la interfaz para cualquier tipo de impresión
-interface Impresor {
-    public function imprimir();
-}
-
-// Implementación específica para imprimir la letra D
-class LetraD implements Impresor {
-    public function imprimir() {
-        echo "######\n";
-        echo "#     #\n";
-        echo "#      #\n";
-        echo "#      #\n";
-        echo "#     #\n";
-        echo "######\n";
+// Clase que maneja la lógica de generación de la letra S
+class GeneradorLetraS {
+    public function generar() {
+        return "######\n" .
+               "#\n" .
+               "#\n" .
+               "######\n" .
+               "      #\n" .
+               "######\n";
     }
 }
 
-// Clase de alto nivel que depende de una abstracción (Interfaz Impresor)
-class Impresion {
-    private $impresor;
-
-    public function __construct(Impresor $impresor) {
-        $this->impresor = $impresor;
-    }
-
-    public function imprimirLetra() {
-        $this->impresor->imprimir();
+// Clase que se encarga de imprimir cualquier letra
+class Impresora {
+    public function imprimir($contenido) {
+        echo $contenido;
     }
 }
 
-// Creación de una instancia de la clase Impresion utilizando la clase LetraD
-$impresorLetraD = new LetraD();
-$impresion = new Impresion($impresorLetraD);
-$impresion->imprimirLetra();
+// Clase que orquesta la generación y la impresión de la letra S
+class Cliente {
+    private $generador;
+    private $impresora;
+
+    public function __construct() {
+        $this->generador = new GeneradorLetraS();
+        $this->impresora = new Impresora();
+    }
+
+    public function imprimirLetraS() {
+        $letraS = $this->generador->generar();
+        $this->impresora->imprimir($letraS);
+    }
+}
+
+// Uso del cliente para imprimir la letra S
+$cliente = new Cliente();
+$cliente->imprimirLetraS();
 ?>
-
